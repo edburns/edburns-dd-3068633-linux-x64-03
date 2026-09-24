@@ -3,6 +3,7 @@ param(
     [int] $N = 0
 )
 
+# Bound BigInteger growth so CLI requests remain deterministic and finite.
 $script:MaximumFibonacciN = 10000
 
 function Get-Fibonacci {
@@ -45,8 +46,7 @@ function Get-Fibonacci {
 }
 
 # Dot-sourced tests load the function without running the CLI output path.
-$isDotSourced = $MyInvocation.InvocationName -eq '.' -or $MyInvocation.Line -match '^\s*\.\s'
-if (-not $isDotSourced) {
+if ($MyInvocation.InvocationName -ne '.') {
     $value = Get-Fibonacci -N $N
     "Fibonacci($N) = $value"
 }

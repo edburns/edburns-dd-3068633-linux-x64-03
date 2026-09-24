@@ -31,7 +31,7 @@ Describe 'math-tool loading' {
         $env:MATH_TOOL_TEST_PATH = $script:MathToolPath
         try {
             $global:LASTEXITCODE = $null
-            $output = @(& $script:PowerShellPath -NoLogo -NoProfile -Command '. $env:MATH_TOOL_TEST_PATH')
+            $output = @(& $script:PowerShellPath -NoLogo -NoProfile -Command '. "$env:MATH_TOOL_TEST_PATH"')
         }
         finally {
             Remove-Item Env:\MATH_TOOL_TEST_PATH -ErrorAction SilentlyContinue
