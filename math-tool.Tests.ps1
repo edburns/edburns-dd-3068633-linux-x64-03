@@ -24,6 +24,10 @@ Describe 'Get-Fibonacci' {
     It 'rejects negative N' {
         { Get-Fibonacci -N -1 } | Should -Throw
     }
+
+    It 'rejects values above the configured range' {
+        { Get-Fibonacci -N 10001 } | Should -Throw
+    }
 }
 
 Describe 'math-tool loading' {
