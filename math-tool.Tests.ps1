@@ -38,7 +38,7 @@ Describe 'math-tool loading' {
         }
 
         $LASTEXITCODE | Should -Be 0
-        $output | Should -HaveCount 0
+        $output.Count | Should -Be 0
     }
 }
 
@@ -57,7 +57,7 @@ Describe 'math-tool CLI' {
         $output = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N $N)
 
         $LASTEXITCODE | Should -Be 0
-        $output | Should -HaveCount 1
+        $output.Count | Should -Be 1
         $output[0] | Should -BeExactly $Expected
     }
 }

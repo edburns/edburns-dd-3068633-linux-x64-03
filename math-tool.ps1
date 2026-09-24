@@ -1,8 +1,9 @@
 [CmdletBinding()]
 param(
-    [ValidateRange(0, 10000)]
     [int] $N = 0
 )
+
+$script:MaximumFibonacciN = 10000
 
 function Get-Fibonacci {
     <#
@@ -10,7 +11,7 @@ function Get-Fibonacci {
     Returns the Fibonacci number for a non-negative integer.
 
     .PARAMETER N
-    The non-negative integer position in the Fibonacci sequence, up to 10000.
+    The non-negative integer position in the Fibonacci sequence, up to the configured maximum.
 
     .OUTPUTS
     System.Numerics.BigInteger
@@ -18,7 +19,12 @@ function Get-Fibonacci {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [ValidateRange(0, 10000)]
+        [ValidateScript({
+            if ($_ -lt 0 -or $_ -gt $script:MaximumFibonacciN) {
+                throw "N must be between 0 and $script:MaximumFibonacciN."
+            }
+            $true
+        })]
         [int] $N
     )
 
