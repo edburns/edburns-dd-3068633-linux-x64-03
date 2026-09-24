@@ -1,0 +1,22 @@
+[
+  {
+    "implementationSubsection": "1. Implement Fibonacci with unit and isolated CLI coverage",
+    "bodyFile": "issue-bodies/01-1-implement-fibonacci-body.md",
+    "id": 5568447655,
+    "number": 2,
+    "title": "1. Implement Fibonacci with unit and isolated CLI coverage",
+    "url": "https://github.com/edburns/edburns-dd-3068633-linux-x64-03/issues/2",
+    "body_verified": true,
+    "linked": true
+  },
+  {
+    "implementationSubsection": "2. Add factorial and operation dispatch",
+    "bodyFile": "issue-bodies/02-2-add-factorial-dispatch-body.md",
+    "id": 5568448107,
+    "number": 3,
+    "title": "2. Add factorial and operation dispatch",
+    "url": "https://github.com/edburns/edburns-dd-3068633-linux-x64-03/issues/3",
+    "body_verified": true,
+    "linked": true
+  }
+]
