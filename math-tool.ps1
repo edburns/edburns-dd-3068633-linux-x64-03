@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateRange(0, [int]::MaxValue)]
+    [ValidateRange(0, 10000)]
     [int] $N = 0
 )
 
@@ -10,7 +10,7 @@ function Get-Fibonacci {
     Returns the Fibonacci number for a non-negative integer.
 
     .PARAMETER N
-    The non-negative integer position in the Fibonacci sequence.
+    The non-negative integer position in the Fibonacci sequence, up to 10000.
 
     .OUTPUTS
     System.Numerics.BigInteger
@@ -18,11 +18,9 @@ function Get-Fibonacci {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [ValidateRange(0, [int]::MaxValue)]
+        [ValidateRange(0, 10000)]
         [int] $N
     )
-
-    Set-StrictMode -Version Latest
 
     if ($N -lt 2) {
         return [System.Numerics.BigInteger] $N
@@ -41,7 +39,8 @@ function Get-Fibonacci {
 }
 
 # Dot-sourced tests load the function without running the CLI output path.
-if ($MyInvocation.InvocationName -ne '.') {
+$isDotSourced = $MyInvocation.InvocationName -eq '.' -or $MyInvocation.Line -match '^\s*\.\s'
+if (-not $isDotSourced) {
     $value = Get-Fibonacci -N $N
     "Fibonacci($N) = $value"
 }
