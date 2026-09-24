@@ -1,5 +1,6 @@
 BeforeAll {
     $script:MathToolPath = Join-Path $PSScriptRoot 'math-tool.ps1'
+    $script:PowerShellPath = (Get-Process -Id $PID).Path
     . $script:MathToolPath
 }
 
@@ -15,11 +16,25 @@ Describe 'Get-Fibonacci' {
     It 'returns 5 for N=5' {
         Get-Fibonacci -N 5 | Should -Be 5
     }
+
+    It 'returns the exact BigInteger value for N=100' {
+        Get-Fibonacci -N 100 | Should -Be ([System.Numerics.BigInteger]::Parse('354224848179261915075'))
+    }
+
+    It 'rejects negative N' {
+        { Get-Fibonacci -N -1 } | Should -Throw
+    }
 }
 
 Describe 'math-tool loading' {
     It 'does not write a result line when dot-sourced' {
-        $output = @(& pwsh -NoLogo -NoProfile -Command ". '$script:MathToolPath'")
+        $env:MATH_TOOL_TEST_PATH = $script:MathToolPath
+        try {
+            $output = @(& $script:PowerShellPath -NoLogo -NoProfile -Command { . $env:MATH_TOOL_TEST_PATH })
+        }
+        finally {
+            Remove-Item Env:\MATH_TOOL_TEST_PATH -ErrorAction SilentlyContinue
+        }
 
         $LASTEXITCODE | Should -Be 0
         $output | Should -HaveCount 0
@@ -37,7 +52,7 @@ Describe 'math-tool CLI' {
             [string] $Expected
         )
 
-        $output = @(& pwsh -NoLogo -NoProfile -File $script:MathToolPath -N $N)
+        $output = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N $N)
 
         $LASTEXITCODE | Should -Be 0
         $output | Should -HaveCount 1
