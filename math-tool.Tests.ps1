@@ -21,8 +21,8 @@ Describe 'Get-Fibonacci' {
         Get-Fibonacci -N 100 | Should -Be ([System.Numerics.BigInteger]::Parse('354224848179261915075'))
     }
 
-    It 'accepts larger representative non-negative integers' {
-        Get-Fibonacci -N 200 | Should -BeOfType ([System.Numerics.BigInteger])
+    It 'accepts non-negative integers above the old arbitrary limit' {
+        Get-Fibonacci -N 10001 | Should -BeOfType ([System.Numerics.BigInteger])
     }
 
     It 'rejects negative N' {
