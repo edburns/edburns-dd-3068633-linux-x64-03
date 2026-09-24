@@ -113,10 +113,14 @@ Describe 'math-tool CLI' {
     It 'produces the same Fibonacci line with and without explicit dispatch' {
         $global:LASTEXITCODE = $null
         $implicit = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N 7)
-        $explicit = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N 7 -Operation fibonacci)
-
         $LASTEXITCODE | Should -Be 0
+
+        $global:LASTEXITCODE = $null
+        $explicit = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N 7 -Operation fibonacci)
+        $LASTEXITCODE | Should -Be 0
+
         $implicit.Count | Should -Be 1
+        $explicit.Count | Should -Be 1
         $explicit[0] | Should -BeExactly $implicit[0]
     }
 }

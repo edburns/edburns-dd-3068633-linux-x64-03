@@ -76,9 +76,12 @@ if (-not $isDotSourced) {
             $value = Get-Factorial -N $N
             "Factorial($N) = $value"
         }
-        default {
+        'fibonacci' {
             $value = Get-Fibonacci -N $N
             "Fibonacci($N) = $value"
+        }
+        default {
+            throw "Unsupported operation '$Operation'."
         }
     }
 }
