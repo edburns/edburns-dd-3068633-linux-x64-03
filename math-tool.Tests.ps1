@@ -30,7 +30,8 @@ Describe 'math-tool loading' {
     It 'does not write a result line when dot-sourced' {
         $env:MATH_TOOL_TEST_PATH = $script:MathToolPath
         try {
-            $output = @(& $script:PowerShellPath -NoLogo -NoProfile -Command { . $env:MATH_TOOL_TEST_PATH })
+            $global:LASTEXITCODE = $null
+            $output = @(& $script:PowerShellPath -NoLogo -NoProfile -Command '. $env:MATH_TOOL_TEST_PATH')
         }
         finally {
             Remove-Item Env:\MATH_TOOL_TEST_PATH -ErrorAction SilentlyContinue
@@ -52,6 +53,7 @@ Describe 'math-tool CLI' {
             [string] $Expected
         )
 
+        $global:LASTEXITCODE = $null
         $output = @(& $script:PowerShellPath -NoLogo -NoProfile -File $script:MathToolPath -N $N)
 
         $LASTEXITCODE | Should -Be 0

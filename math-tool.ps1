@@ -4,8 +4,6 @@ param(
     [int] $N = 0
 )
 
-Set-StrictMode -Version Latest
-
 function Get-Fibonacci {
     [CmdletBinding()]
     param(
@@ -13,6 +11,8 @@ function Get-Fibonacci {
         [ValidateRange(0, [int]::MaxValue)]
         [int] $N
     )
+
+    Set-StrictMode -Version Latest
 
     if ($N -lt 2) {
         return [System.Numerics.BigInteger] $N
