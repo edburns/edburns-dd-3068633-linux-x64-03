@@ -1,7 +1,10 @@
 [CmdletBinding()]
 param(
     [ValidateRange(0, [int]::MaxValue)]
-    [int] $N = 0
+    [int] $N = 0,
+
+    [ValidateSet('fibonacci', 'factorial')]
+    [string] $Operation = 'fibonacci'
 )
 
 function Get-Fibonacci {
@@ -38,9 +41,44 @@ function Get-Fibonacci {
     return $current
 }
 
+function Get-Factorial {
+    <#
+    .SYNOPSIS
+    Returns the factorial of a non-negative integer.
+
+    .PARAMETER N
+    The non-negative integer to take the factorial of.
+
+    .OUTPUTS
+    System.Numerics.BigInteger
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateRange(0, [int]::MaxValue)]
+        [int] $N
+    )
+
+    [System.Numerics.BigInteger] $product = 1
+
+    for ($i = 2; $i -le $N; $i++) {
+        $product = $product * $i
+    }
+
+    return $product
+}
+
 # Dot-sourced tests load the function without running the CLI output path.
 $isDotSourced = $MyInvocation.InvocationName -eq '.'
 if (-not $isDotSourced) {
-    $value = Get-Fibonacci -N $N
-    "Fibonacci($N) = $value"
+    switch ($Operation) {
+        'factorial' {
+            $value = Get-Factorial -N $N
+            "Factorial($N) = $value"
+        }
+        default {
+            $value = Get-Fibonacci -N $N
+            "Fibonacci($N) = $value"
+        }
+    }
 }
