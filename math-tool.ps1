@@ -1,8 +1,6 @@
 [CmdletBinding()]
 param(
-    # Bound BigInteger growth so CLI requests remain deterministic and finite.
-    # Keep this limit in sync with Get-Fibonacci's parameter validation and help.
-    [ValidateRange(0, 10000)]
+    [ValidateRange(0, [int]::MaxValue)]
     [int] $N = 0
 )
 
@@ -12,7 +10,7 @@ function Get-Fibonacci {
     Returns the Fibonacci number for a non-negative integer.
 
     .PARAMETER N
-    The non-negative integer position in the Fibonacci sequence, up to 10000.
+    The non-negative integer position in the Fibonacci sequence.
 
     .OUTPUTS
     System.Numerics.BigInteger
@@ -20,8 +18,7 @@ function Get-Fibonacci {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        # Bound BigInteger growth so CLI requests remain deterministic and finite.
-        [ValidateRange(0, 10000)]
+        [ValidateRange(0, [int]::MaxValue)]
         [int] $N
     )
 

@@ -21,17 +21,14 @@ Describe 'Get-Fibonacci' {
         Get-Fibonacci -N 100 | Should -Be ([System.Numerics.BigInteger]::Parse('354224848179261915075'))
     }
 
-    It 'accepts the configured upper boundary' {
-        Get-Fibonacci -N 10000 | Should -BeOfType ([System.Numerics.BigInteger])
+    It 'accepts non-negative integers above 10000' {
+        Get-Fibonacci -N 10001 | Should -BeOfType ([System.Numerics.BigInteger])
     }
 
     It 'rejects negative N' {
         { Get-Fibonacci -N -1 } | Should -Throw
     }
 
-    It 'rejects values above the configured range' {
-        { Get-Fibonacci -N 10001 } | Should -Throw
-    }
 }
 
 Describe 'math-tool loading' {
