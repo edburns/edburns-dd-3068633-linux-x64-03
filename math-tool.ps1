@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
     # Bound BigInteger growth so CLI requests remain deterministic and finite.
+    # Keep this limit in sync with Get-Fibonacci's parameter validation and help.
     [ValidateRange(0, 10000)]
     [int] $N = 0
 )
@@ -41,7 +42,8 @@ function Get-Fibonacci {
 }
 
 # Dot-sourced tests load the function without running the CLI output path.
-if ($MyInvocation.InvocationName -ne '.') {
+$isDotSourced = $MyInvocation.InvocationName -eq '.'
+if (-not $isDotSourced) {
     $value = Get-Fibonacci -N $N
     "Fibonacci($N) = $value"
 }
