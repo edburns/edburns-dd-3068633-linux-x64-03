@@ -81,6 +81,7 @@ if (-not $isDotSourced) {
             "Fibonacci($N) = $value"
         }
         default {
+            # Unreachable while ValidateSet guards $Operation; guards future additions.
             throw "Unsupported operation '$Operation'."
         }
     }

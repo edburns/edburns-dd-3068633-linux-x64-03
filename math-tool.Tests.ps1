@@ -46,6 +46,7 @@ Describe 'Get-Factorial' {
 
     It 'returns the exact BigInteger value for N=25' {
         Get-Factorial -N 25 | Should -Be ([System.Numerics.BigInteger]::Parse('15511210043330985984000000'))
+        Get-Factorial -N 25 | Should -BeOfType ([System.Numerics.BigInteger])
     }
 
     It 'rejects negative N' {
