@@ -1,6 +1,6 @@
 BeforeAll {
     $script:MathToolPath = Join-Path $PSScriptRoot 'math-tool.ps1'
-    $script:PowerShellPath = (Get-Process -Id $PID).Path
+    $script:PowerShellPath = (Get-Command pwsh -ErrorAction Stop).Source
     . $script:MathToolPath
 }
 

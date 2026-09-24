@@ -5,6 +5,16 @@ param(
 )
 
 function Get-Fibonacci {
+    <#
+    .SYNOPSIS
+    Returns the Fibonacci number for a non-negative integer.
+
+    .PARAMETER N
+    The non-negative integer position in the Fibonacci sequence.
+
+    .OUTPUTS
+    System.Numerics.BigInteger
+    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -30,6 +40,7 @@ function Get-Fibonacci {
     return $current
 }
 
+# Dot-sourced tests load the function without running the CLI output path.
 if ($MyInvocation.InvocationName -ne '.') {
     $value = Get-Fibonacci -N $N
     "Fibonacci($N) = $value"
